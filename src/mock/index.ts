@@ -149,19 +149,4 @@ export const DefaultNews = [
     ],
     events: [],
   },
-  {
-    id: 17831,
-    title: "Rep. Mike Rogers named chairman of House Armed Services Committee",
-    url: "https://spacenews.com/rep-mike-rogers-named-chairman-of-house-armed-services-committee/",
-    imageUrl:
-      "https://spacenews.com/wp-content/uploads/2021/03/Screen-Shot-2021-03-18-at-12.20.08-PM.png",
-    newsSite: "SpaceNews",
-    summary:
-      "Rep. Mike Rogers (R-Ala.) on Jan. 10 was officially selected to serve as chairman of the House Armed Services Committee in the 118th Congress.",
-    publishedAt: "2023-01-10T18:32:18.000Z",
-    updatedAt: "2023-01-10T18:32:19.040Z",
-    featured: false,
-    launches: [],
-    events: [],
-  },
 ];

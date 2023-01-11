@@ -11,6 +11,7 @@ function App() {
       maxWidth="md"
       sx={{
         mt: 3,
+        mb: 3,
       }}
     >
       <Routes>

@@ -7,7 +7,10 @@ const Filter = () => {
       <TextField
         label="Filter by keywords"
         fullWidth
-        margin="normal"
+        size="small"
+        color="secondary"
+        sx={{ marginBottom: "20px" }}
+        placeholder="Something about space..."
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">

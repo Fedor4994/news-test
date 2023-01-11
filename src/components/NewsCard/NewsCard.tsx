@@ -8,6 +8,8 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { News } from "../../types/news";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 interface NewsCardProps {
   info: News;
@@ -39,7 +41,12 @@ const NewsCard = ({ info }: NewsCardProps) => {
           image={info.image}
         />
         <CardContent>
-          <Typography sx={{ mb: 1.5 }} color="text.secondary">
+          <Typography
+            sx={{ mb: 1.5, display: "flex", alignItems: "center", gap: 0.5 }}
+            fontSize={12}
+            color="text.secondary"
+          >
+            <CalendarMonthIcon fontSize="inherit" />
             {joinedDate}
           </Typography>
           <Typography gutterBottom fontSize={16} component="div">
@@ -49,9 +56,29 @@ const NewsCard = ({ info }: NewsCardProps) => {
             {`${info.summary.slice(0, 100)}...`}
           </Typography>
         </CardContent>
-        <CardActions sx={{ marginTop: "auto" }}>
-          <Typography gutterBottom fontSize={16} component="div">
-            <Link to={`/${info.id}`}>Read More</Link>
+        <CardActions sx={{ marginTop: "auto", padding: "6px 16px" }}>
+          <Typography
+            gutterBottom
+            fontSize={12}
+            component="span"
+            color="#000"
+            sx={{
+              hover: {
+                color: "red",
+              },
+            }}
+          >
+            <Link
+              to={`/${info.id}`}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "5px",
+              }}
+            >
+              Read More
+              <ArrowForwardIcon fontSize="inherit" />
+            </Link>
           </Typography>
         </CardActions>
       </Card>
