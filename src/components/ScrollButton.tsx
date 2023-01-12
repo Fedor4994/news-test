@@ -28,8 +28,8 @@ const ScrollButton = () => {
     <button
       style={{
         position: "fixed",
-        right: "30px",
-        bottom: "30px",
+        right: "10px",
+        bottom: "10px",
         background: "transparent",
         border: "none",
         cursor: "pointer",

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Box, CircularProgress } from "@mui/material";
+import { Box, CircularProgress, Container } from "@mui/material";
 import Filter from "../components/Filter/Filter";
 import NewsList from "../components/NewsList/NewsList";
 import TotalResults from "../components/TotalResults/TotalResults";
@@ -21,7 +21,6 @@ const Home = () => {
 
   useEffect(() => {
     const fetchAllNews = async () => {
-      console.log("fetching");
       setLoading(true);
       const res = await fetch(
         `https://api.spaceflightnewsapi.net/v3/articles?_limit=9&_start=${numeric}`
@@ -57,7 +56,13 @@ const Home = () => {
   };
 
   return (
-    <>
+    <Container
+      maxWidth="md"
+      sx={{
+        mt: 3,
+        mb: 3,
+      }}
+    >
       <Filter />
       <TotalResults />
 
@@ -68,7 +73,7 @@ const Home = () => {
         </Box>
       )}
       <ScrollButton />
-    </>
+    </Container>
   );
 };
 

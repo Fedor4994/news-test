@@ -7,18 +7,10 @@ import Home from "./views/Home";
 
 function App() {
   return (
-    <Container
-      maxWidth="md"
-      sx={{
-        mt: 3,
-        mb: 3,
-      }}
-    >
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/:id" element={<Details />} />
-      </Routes>
-    </Container>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/:id" element={<Details />} />
+    </Routes>
   );
 }
 
