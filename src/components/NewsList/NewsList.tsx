@@ -6,7 +6,6 @@ export interface NewsListProps {
 }
 
 const NewsList = ({ news }: NewsListProps) => {
-  console.log(news);
   return (
     <Grid container spacing={3} columns={{ xs: 4, sm: 8, md: 12 }}>
       {news.map((el) => (

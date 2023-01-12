@@ -1,13 +1,24 @@
+import { useEffect, useState } from "react";
 import { Typography } from "@mui/material";
-import React from "react";
-interface TotalResultsProps {
-  total: number;
-}
 
-const TotalResults = ({ total }: TotalResultsProps) => {
+const TotalResults = () => {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    getCount();
+  }, []);
+
+  const getCount = async () => {
+    const res = await fetch(
+      "https://api.spaceflightnewsapi.net/v3/articles/count"
+    );
+    const count = await res.json();
+    setCount(count);
+  };
+
   return (
     <Typography borderBottom="1px solid #bbb" marginBottom={4} fontSize={12}>
-      Results: {total}
+      Results: {count}
     </Typography>
   );
 };

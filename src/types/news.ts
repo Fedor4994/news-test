@@ -5,3 +5,11 @@ export type News = {
   summary: string;
   published: string;
 };
+
+export type GlobalNews = {
+  id: number;
+  title: string;
+  imageUrl: string;
+  summary: string;
+  publishedAt: string;
+};
