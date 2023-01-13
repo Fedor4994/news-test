@@ -1,9 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
-import "./index.scss";
-import App from "./App";
+import { Provider } from "react-redux/es/exports";
 import { createTheme, ThemeProvider } from "@mui/material";
+import App from "./App";
+import { store } from "./store";
+import "./index.scss";
 
 const theme = createTheme({
   typography: {
@@ -18,7 +20,9 @@ root.render(
   // <React.StrictMode>
   <ThemeProvider theme={theme}>
     <BrowserRouter>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </BrowserRouter>
   </ThemeProvider>
   // </React.StrictMode>
