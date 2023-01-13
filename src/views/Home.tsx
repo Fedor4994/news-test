@@ -3,7 +3,7 @@ import { Box, CircularProgress, Container } from "@mui/material";
 import Filter from "../components/Filter";
 import NewsList from "../components/NewsList";
 import TotalResults from "../components/TotalResults";
-import { GlobalNews, News } from "../types/news";
+import { News } from "../types/news";
 import ScrollButton from "../components/ScrollButton";
 
 // 3dc031dc81e34860a01f4e044c2cb344
@@ -27,16 +27,9 @@ const Home = () => {
       const res = await fetch(
         `https://api.spaceflightnewsapi.net/v3/articles?_limit=9&_start=${numeric}`
       );
-      const news = (await res.json()) as GlobalNews[];
+      const news = (await res.json()) as News[];
       if (news) {
-        const visibleNews: News[] = news.map((news) => ({
-          id: news.id,
-          title: news.title,
-          image: news.imageUrl,
-          summary: news.summary,
-          published: news.publishedAt,
-        }));
-        setNews((prevNews) => [...(prevNews || []), ...visibleNews]);
+        setNews((prevNews) => [...(prevNews || []), ...news]);
         setNumeric((prevNumeric) => prevNumeric + 10);
       }
       setLoading(false);

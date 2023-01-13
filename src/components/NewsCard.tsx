@@ -22,7 +22,7 @@ const localDate = new Intl.DateTimeFormat("en-GB", {
 });
 
 const NewsCard = ({ info }: NewsCardProps) => {
-  const joinedDate = localDate.format(new Date(info.published));
+  const joinedDate = localDate.format(new Date(info.publishedAt));
 
   return (
     <Grid item xs={12} md={4}>
@@ -38,7 +38,7 @@ const NewsCard = ({ info }: NewsCardProps) => {
           component="img"
           alt={info.title}
           height="200"
-          image={info.image}
+          image={info.imageUrl}
         />
         <CardContent>
           <Typography
