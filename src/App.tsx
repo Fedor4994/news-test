@@ -1,4 +1,3 @@
-import { Container } from "@mui/system";
 import { Route, Routes } from "react-router-dom";
 
 import Details from "./views/Details";

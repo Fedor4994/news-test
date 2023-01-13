@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import { News } from "../../types/news";
+import { News } from "../types/news";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
@@ -37,36 +37,31 @@ const NewsCard = ({ info }: NewsCardProps) => {
         <CardMedia
           component="img"
           alt={info.title}
-          height="140"
+          height="250"
           image={info.image}
         />
         <CardContent>
           <Typography
             sx={{ mb: 1.5, display: "flex", alignItems: "center", gap: 0.5 }}
-            fontSize={12}
+            fontSize={14}
             color="text.secondary"
           >
             <CalendarMonthIcon fontSize="inherit" />
             {joinedDate}
           </Typography>
-          <Typography gutterBottom fontSize={16} component="div">
+          <Typography gutterBottom fontSize={18} component="div">
             {info.title}
           </Typography>
-          <Typography variant="body2" fontSize={12} color="text.secondary">
+          <Typography variant="body2" fontSize={14} color="text.secondary">
             {`${info.summary.slice(0, 100)}...`}
           </Typography>
         </CardContent>
         <CardActions sx={{ marginTop: "auto", padding: "6px 16px" }}>
           <Typography
             gutterBottom
-            fontSize={12}
+            fontSize={14}
+            fontWeight={700}
             component="span"
-            color="#000"
-            sx={{
-              hover: {
-                color: "red",
-              },
-            }}
           >
             <Link
               to={`/${info.id}`}

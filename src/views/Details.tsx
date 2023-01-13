@@ -1,8 +1,15 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { GlobalNews, News } from "../types/news";
+import Description from "../components/Description";
+import DetailsHeader from "../components/DetailsHeader";
 
-interface visibleArticle extends Pick<News, "title" | "summary" | "image"> {}
+export interface visibleArticle {
+  title: string;
+  imageUrl: string;
+  summary: string;
+  newsSite: string;
+  url: string;
+}
 
 const Details = () => {
   const { id } = useParams();
@@ -13,15 +20,10 @@ const Details = () => {
       const res = await fetch(
         `https://api.spaceflightnewsapi.net/v3/articles/${id}`
       );
-      const article = (await res.json()) as GlobalNews;
+      const article = (await res.json()) as visibleArticle;
       if (article) {
-        const visibleArticle: visibleArticle = {
-          title: article.title,
-          summary: article.summary,
-          image: article.imageUrl,
-        };
-        setArticle(visibleArticle);
-        console.log(visibleArticle);
+        setArticle(article);
+        console.log(article);
       }
     };
     fetchArticle();
@@ -29,11 +31,10 @@ const Details = () => {
   return (
     <>
       {article && (
-        <>
-          <img src={article.image} alt={article.title} />
-          <h1>{article.title}</h1>
-          <p>{article.summary}</p>
-        </>
+        <div style={{ position: "relative" }}>
+          <DetailsHeader article={article} />
+          <Description article={article} />
+        </div>
       )}
     </>
   );

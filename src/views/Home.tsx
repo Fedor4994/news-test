@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Box, CircularProgress, Container } from "@mui/material";
-import Filter from "../components/Filter/Filter";
-import NewsList from "../components/NewsList/NewsList";
-import TotalResults from "../components/TotalResults/TotalResults";
+import Filter from "../components/Filter";
+import NewsList from "../components/NewsList";
+import TotalResults from "../components/TotalResults";
 import { GlobalNews, News } from "../types/news";
 import ScrollButton from "../components/ScrollButton";
 
@@ -57,7 +57,7 @@ const Home = () => {
 
   return (
     <Container
-      maxWidth="md"
+      maxWidth="lg"
       sx={{
         mt: 3,
         mb: 3,

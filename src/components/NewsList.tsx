@@ -1,6 +1,6 @@
 import { Grid } from "@mui/material";
-import { News } from "../../types/news";
-import NewsCard from "../NewsCard/NewsCard";
+import { News } from "../types/news";
+import NewsCard from "./NewsCard";
 export interface NewsListProps {
   news: News[];
 }

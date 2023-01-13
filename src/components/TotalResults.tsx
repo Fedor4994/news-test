@@ -17,7 +17,7 @@ const TotalResults = () => {
   };
 
   return (
-    <Typography borderBottom="1px solid #bbb" marginBottom={4} fontSize={12}>
+    <Typography borderBottom="1px solid #bbb" marginBottom={4} fontSize={16}>
       Results: {count}
     </Typography>
   );
