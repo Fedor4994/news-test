@@ -37,7 +37,7 @@ const NewsCard = ({ info }: NewsCardProps) => {
         <CardMedia
           component="img"
           alt={info.title}
-          height="250"
+          height="200"
           image={info.image}
         />
         <CardContent>

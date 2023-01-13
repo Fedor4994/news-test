@@ -6,6 +6,8 @@ import TotalResults from "../components/TotalResults";
 import { GlobalNews, News } from "../types/news";
 import ScrollButton from "../components/ScrollButton";
 
+// 3dc031dc81e34860a01f4e044c2cb344
+
 const Home = () => {
   const [news, setNews] = useState<News[] | null>(null);
   const [numeric, setNumeric] = useState(0);
