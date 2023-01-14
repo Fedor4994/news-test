@@ -28,7 +28,6 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    console.log(fetching);
     if (news.list.length % 9 === 0) {
       if (fetching) {
         if (news.status === "loading") {
