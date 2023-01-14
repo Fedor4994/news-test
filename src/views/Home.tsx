@@ -28,9 +28,9 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
+    console.log(fetching);
     if (news.list.length % 9 === 0) {
       if (fetching) {
-        console.log(news.status);
         if (news.status === "loading") {
           return;
         }
