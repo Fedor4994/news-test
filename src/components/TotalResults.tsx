@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { Typography } from "@mui/material";
+import Sort from "./Sort";
 
 interface TotalResultsProps {
   filter: string;
+  onSortChange(value: string): void;
 }
 
-const TotalResults = ({ filter }: TotalResultsProps) => {
+const TotalResults = ({ filter, onSortChange }: TotalResultsProps) => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
@@ -21,8 +23,17 @@ const TotalResults = ({ filter }: TotalResultsProps) => {
   }, [filter]);
 
   return (
-    <Typography borderBottom="1px solid #bbb" marginBottom={4} fontSize={16}>
+    <Typography
+      component="div"
+      borderBottom="1px solid #bbb"
+      marginBottom={4}
+      fontSize={16}
+      display="flex"
+      alignItems="center"
+      justifyContent="space-between"
+    >
       Results: {count}
+      <Sort onSortChange={onSortChange} />
     </Typography>
   );
 };

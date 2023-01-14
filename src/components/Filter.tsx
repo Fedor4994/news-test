@@ -14,7 +14,8 @@ const Filter = ({ onChange }: filterProps) => {
     <>
       <TextField
         onChange={debounce(handleChange, 500)}
-        label="Filter by keywords"
+        label="Filter news"
+        autoComplete="off"
         fullWidth
         size="small"
         color="secondary"

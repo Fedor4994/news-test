@@ -12,6 +12,7 @@ const Home = () => {
   const [isLoading, setLoading] = useState(false);
   const [fetching, setFetching] = useState(true);
   const [filter, setFilter] = useState("");
+  const [sort, setSort] = useState("new first");
 
   useEffect(() => {
     document.addEventListener("scroll", scrollHandler);
@@ -21,10 +22,13 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
+    console.log(sort);
     const fetchAllNews = async () => {
       setLoading(true);
       const res = await fetch(
-        `https://api.spaceflightnewsapi.net/v3/articles?_limit=9&_start=${numeric}&title_contains=${filter}`
+        `https://api.spaceflightnewsapi.net/v3/articles?_limit=9&_start=${numeric}&title_contains=${filter}&_sort=${
+          sort === "old first" ? "publishedAt" : ""
+        }`
       );
       const news = (await res.json()) as News[];
       if (news) {
@@ -42,7 +46,7 @@ const Home = () => {
     if (fetching) {
       fetchAllNews();
     }
-  }, [numeric, fetching, filter]);
+  }, [numeric, fetching, filter, sort]);
 
   const scrollHandler = (): void => {
     if (
@@ -61,6 +65,13 @@ const Home = () => {
     setFilter(filter.trim());
   };
 
+  const onSortChange = (sort: string) => {
+    setNews([]);
+    setFetching(true);
+    setNumeric(0);
+    setSort(sort.trim());
+  };
+
   return (
     <Container
       maxWidth="lg"
@@ -70,9 +81,9 @@ const Home = () => {
       }}
     >
       <Filter onChange={onFilterChange} />
-      <TotalResults filter={filter} />
+      <TotalResults onSortChange={onSortChange} filter={filter} />
 
-      {news && <NewsList news={news} />}
+      {news && <NewsList filter={filter} news={news} />}
       {isLoading && (
         <Box sx={{ display: "flex", pt: 1 }}>
           <CircularProgress sx={{ marginLeft: "auto", marginRight: "auto" }} />

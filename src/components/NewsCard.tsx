@@ -10,9 +10,11 @@ import { Link } from "react-router-dom";
 import { News } from "../types/news";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import Highlighter from "react-highlight-words";
 
 interface NewsCardProps {
   info: News;
+  filter: string;
 }
 
 const localDate = new Intl.DateTimeFormat("en-GB", {
@@ -21,7 +23,7 @@ const localDate = new Intl.DateTimeFormat("en-GB", {
   year: "numeric",
 });
 
-const NewsCard = ({ info }: NewsCardProps) => {
+const NewsCard = ({ info, filter }: NewsCardProps) => {
   const joinedDate = localDate.format(new Date(info.publishedAt));
 
   return (
@@ -36,9 +38,13 @@ const NewsCard = ({ info }: NewsCardProps) => {
       >
         <CardMedia
           component="img"
-          alt={info.title}
+          alt=""
           height="200"
           image={info.imageUrl}
+          sx={{
+            backgroundImage:
+              "url(https://jakpreneur.jakarta.go.id/imagecache/original/images/placeholder.png)",
+          }}
         />
         <CardContent>
           <Typography
@@ -49,8 +55,13 @@ const NewsCard = ({ info }: NewsCardProps) => {
             <CalendarMonthIcon fontSize="inherit" />
             {joinedDate}
           </Typography>
+
           <Typography gutterBottom fontSize={18} component="div">
-            {info.title}
+            <Highlighter
+              searchWords={[filter]}
+              autoEscape={true}
+              textToHighlight={info.title}
+            />
           </Typography>
           <Typography variant="body2" fontSize={14} color="text.secondary">
             {`${info.summary.slice(0, 100)}...`}
