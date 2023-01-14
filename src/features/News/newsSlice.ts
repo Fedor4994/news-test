@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { News } from "../../types/news";
 import { fetchAllNews } from "./news-operations";
 
-interface NewsSlice {
+export interface NewsSlice {
   status: "idle" | "loading" | "finished" | "error";
   list: News[];
 }
@@ -27,15 +27,9 @@ const newsSlice = createSlice({
       })
       .addCase(fetchAllNews.fulfilled, (state, action) => {
         state.status = "finished";
-        if (state.list.length === 0) {
-          state.list = action.payload;
-        } else {
-          action.payload.forEach((item) => {
-            if (!state.list.find((el) => el.id === item.id)) {
-              state.list.push(item);
-            }
-          });
-        }
+
+        console.log(action.payload);
+        state.list = [...state.list, ...action.payload];
       })
       .addCase(fetchAllNews.rejected, (state) => {
         state.status = "error";

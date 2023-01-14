@@ -28,15 +28,18 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    console.log(fetching);
     if (news.list.length % 9 === 0) {
       if (fetching) {
+        console.log(news.status);
+        if (news.status === "loading") {
+          return;
+        }
         dispatch(fetchAllNews({ filter, numeric, sort }));
         setNumeric((prevNumeric) => prevNumeric + 10);
         setFetching(false);
       }
     }
-  }, [numeric, fetching, filter, sort, dispatch, news.list.length]);
+  }, [numeric, fetching, filter, sort, dispatch, news]);
 
   const scrollHandler = (): void => {
     if (
@@ -50,12 +53,14 @@ const Home = () => {
 
   const onFilterChange = () => {
     dispatch(clearNews());
+
     setFetching(true);
     setNumeric(0);
   };
 
   const onSortChange = (sort: string) => {
     dispatch(clearNews());
+
     setFetching(true);
     setNumeric(0);
     setSort(sort.trim());

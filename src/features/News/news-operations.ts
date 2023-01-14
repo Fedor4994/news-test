@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { News } from "../../types/news";
+import { NewsSlice } from "./newsSlice";
 
 interface fetchAllParams {
   numeric: number;
@@ -7,7 +8,13 @@ interface fetchAllParams {
   sort: string;
 }
 
-export const fetchAllNews = createAsyncThunk(
+export const fetchAllNews = createAsyncThunk<
+  News[],
+  fetchAllParams,
+  {
+    state: { news: NewsSlice };
+  }
+>(
   "news/fetchNews",
   async ({ numeric, filter, sort }: fetchAllParams) => {
     const res = await fetch(
@@ -17,5 +24,14 @@ export const fetchAllNews = createAsyncThunk(
     );
     const news = (await res.json()) as News[];
     return news;
+  },
+  {
+    condition: (params, { getState }) => {
+      const { status } = getState().news;
+
+      if (status === "loading") {
+        return false;
+      }
+    },
   }
 );
