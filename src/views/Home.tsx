@@ -1,18 +1,24 @@
 import { useEffect, useState } from "react";
-import { Box, CircularProgress, Container } from "@mui/material";
+import { Container } from "@mui/material";
 import Filter from "../components/Filter";
 import NewsList from "../components/NewsList";
 import TotalResults from "../components/TotalResults";
-import { News } from "../types/news";
 import ScrollButton from "../components/ScrollButton";
+import { useAppDispatch, useAppSelector } from "../redux-hooks";
+import { selectFilter } from "../features/Filter/filterSelectors";
+import { fetchAllNews } from "../features/News/news-operations";
+import { selectNews } from "../features/News/newsSelectors";
+import { clearNews } from "../features/News/newsSlice";
+import Loader from "../components/Loader";
 
 const Home = () => {
-  const [news, setNews] = useState<News[] | null>(null);
   const [numeric, setNumeric] = useState(0);
-  const [isLoading, setLoading] = useState(false);
   const [fetching, setFetching] = useState(true);
-  const [filter, setFilter] = useState("");
   const [sort, setSort] = useState("new first");
+
+  const dispatch = useAppDispatch();
+  const filter = useAppSelector(selectFilter);
+  const news = useAppSelector(selectNews);
 
   useEffect(() => {
     document.addEventListener("scroll", scrollHandler);
@@ -22,31 +28,15 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    console.log(sort);
-    const fetchAllNews = async () => {
-      setLoading(true);
-      const res = await fetch(
-        `https://api.spaceflightnewsapi.net/v3/articles?_limit=9&_start=${numeric}&title_contains=${filter}&_sort=${
-          sort === "old first" ? "publishedAt" : ""
-        }`
-      );
-      const news = (await res.json()) as News[];
-      if (news) {
-        setNews((prevNews) => [...(prevNews || []), ...news]);
-        console.log(news);
-        if (news.length < 9) {
-          setLoading(false);
-          return;
-        }
+    console.log(fetching);
+    if (news.list.length % 9 === 0) {
+      if (fetching) {
+        dispatch(fetchAllNews({ filter, numeric, sort }));
         setNumeric((prevNumeric) => prevNumeric + 10);
+        setFetching(false);
       }
-      setLoading(false);
-      setFetching(false);
-    };
-    if (fetching) {
-      fetchAllNews();
     }
-  }, [numeric, fetching, filter, sort]);
+  }, [numeric, fetching, filter, sort, dispatch, news.list.length]);
 
   const scrollHandler = (): void => {
     if (
@@ -58,15 +48,14 @@ const Home = () => {
     }
   };
 
-  const onFilterChange = (filter: string) => {
-    setNews([]);
+  const onFilterChange = () => {
+    dispatch(clearNews());
     setFetching(true);
     setNumeric(0);
-    setFilter(filter.trim());
   };
 
   const onSortChange = (sort: string) => {
-    setNews([]);
+    dispatch(clearNews());
     setFetching(true);
     setNumeric(0);
     setSort(sort.trim());
@@ -81,14 +70,9 @@ const Home = () => {
       }}
     >
       <Filter onChange={onFilterChange} />
-      <TotalResults onSortChange={onSortChange} filter={filter} />
-
-      {news && <NewsList filter={filter} news={news} />}
-      {isLoading && (
-        <Box sx={{ display: "flex", pt: 1 }}>
-          <CircularProgress sx={{ marginLeft: "auto", marginRight: "auto" }} />
-        </Box>
-      )}
+      <TotalResults onSortChange={onSortChange} />
+      {news && <NewsList />}
+      {news.status === "loading" && <Loader />}
       <ScrollButton />
     </Container>
   );

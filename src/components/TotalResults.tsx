@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 import { Typography } from "@mui/material";
 import Sort from "./Sort";
+import { useAppSelector } from "../redux-hooks";
+import { selectFilter } from "../features/Filter/filterSelectors";
 
 interface TotalResultsProps {
-  filter: string;
   onSortChange(value: string): void;
 }
 
-const TotalResults = ({ filter, onSortChange }: TotalResultsProps) => {
+const TotalResults = ({ onSortChange }: TotalResultsProps) => {
   const [count, setCount] = useState(0);
+  const filter = useAppSelector(selectFilter);
 
   useEffect(() => {
     const getCount = async () => {

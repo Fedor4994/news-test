@@ -11,10 +11,11 @@ import { News } from "../types/news";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Highlighter from "react-highlight-words";
+import { useAppSelector } from "../redux-hooks";
+import { selectFilter } from "../features/Filter/filterSelectors";
 
 interface NewsCardProps {
   info: News;
-  filter: string;
 }
 
 const localDate = new Intl.DateTimeFormat("en-GB", {
@@ -23,8 +24,9 @@ const localDate = new Intl.DateTimeFormat("en-GB", {
   year: "numeric",
 });
 
-const NewsCard = ({ info, filter }: NewsCardProps) => {
+const NewsCard = ({ info }: NewsCardProps) => {
   const joinedDate = localDate.format(new Date(info.publishedAt));
+  const filter = useAppSelector(selectFilter);
 
   return (
     <Grid item xs={12} md={4}>
