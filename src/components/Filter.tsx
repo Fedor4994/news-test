@@ -1,10 +1,19 @@
+import React from "react";
 import ManageSearchIcon from "@mui/icons-material/ManageSearch";
 import { InputAdornment, TextField } from "@mui/material";
+import { debounce } from "@mui/material/utils";
+interface filterProps {
+  onChange(x: string): void;
+}
 
-const Filter = () => {
+const Filter = ({ onChange }: filterProps) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    onChange(event.target.value);
+  };
   return (
     <>
       <TextField
+        onChange={debounce(handleChange, 500)}
         label="Filter by keywords"
         fullWidth
         size="small"

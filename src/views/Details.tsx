@@ -23,7 +23,6 @@ const Details = () => {
       const article = (await res.json()) as visibleArticle;
       if (article) {
         setArticle(article);
-        console.log(article);
       }
     };
     fetchArticle();
