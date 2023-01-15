@@ -27,8 +27,15 @@ const newsSlice = createSlice({
       })
       .addCase(fetchAllNews.fulfilled, (state, action) => {
         state.status = "finished";
-
-        state.list = [...state.list, ...action.payload];
+        if (state.list.length === 0) {
+          state.list = action.payload;
+        } else {
+          action.payload.forEach((item) => {
+            if (!state.list.find((el) => el.id === item.id)) {
+              state.list.push(item);
+            }
+          });
+        }
       })
       .addCase(fetchAllNews.rejected, (state) => {
         state.status = "error";

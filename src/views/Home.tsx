@@ -52,16 +52,12 @@ const Home = () => {
 
   const onFilterChange = () => {
     dispatch(clearNews());
-
     setFetching(true);
     setNumeric(0);
   };
 
   const onSortChange = (sort: string) => {
-    dispatch(clearNews());
-
-    setFetching(true);
-    setNumeric(0);
+    onFilterChange();
     setSort(sort.trim());
   };
 
